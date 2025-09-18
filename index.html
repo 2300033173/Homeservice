@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HouseMate - Home Services Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 60px 0;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .feature-desc {
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .service-card {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .demo-section {
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .demo-accounts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .demo-card {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin-top: 60px;
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🏠 HouseMate</div>
+            <div class="subtitle">Your Trusted Home Services Platform in Vijayawada</div>
+            <div class="description">
+                Connect with verified local service professionals for all your home needs. 
+                Book instantly, track in real-time, and enjoy hassle-free home services.
+            </div>
+            <a href="#demo" class="btn">Explore Services</a>
+        </div>
+        
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <div class="feature-title">Multi-Role System</div>
+                <div class="feature-desc">
+                    Separate dashboards for Customers, Service Providers, and Administrators with role-based access control.
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔧</div>
+                <div class="feature-title">100+ Home Services</div>
+                <div class="feature-desc">
+                    Comprehensive range of services including Cleaning, Plumbing, Electrical, AC, Painting, and more.
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">Real-time Booking</div>
+                <div class="feature-desc">
+                    Instant service booking with live tracking, smart search, and auto-suggestions for quick discovery.
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <div class="feature-title">Modern UI Design</div>
+                <div class="feature-desc">
+                    Glass morphism design with smooth animations, gradient backgrounds, and responsive layout.
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <div class="feature-title">Secure Payments</div>
+                <div class="feature-desc">
+                    Multiple payment options in Indian Rupees (₹) with transparent pricing and no hidden charges.
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📍</div>
+                <div class="feature-title">Location-based</div>
+                <div class="feature-desc">
+                    Specifically designed for Vijayawada, Andhra Pradesh with local service providers and area coverage.
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-section" id="demo">
+            <h2 style="text-align: center; margin-bottom: 20px;">🚀 Service Categories</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>🧹 Cleaning Services</h3>
+                    <p>15+ services including deep cleaning, kitchen, bathroom, and office cleaning</p>
+                </div>
+                <div class="service-card">
+                    <h3>🔧 Plumbing Services</h3>
+                    <p>20+ services for repairs, installation, tank cleaning, and emergency plumbing</p>
+                </div>
+                <div class="service-card">
+                    <h3>⚡ Electrical Services</h3>
+                    <p>20+ services including wiring, repairs, smart home setup, and solar installation</p>
+                </div>
+                <div class="service-card">
+                    <h3>❄️ AC Services</h3>
+                    <p>15+ services for installation, repair, servicing, and maintenance</p>
+                </div>
+                <div class="service-card">
+                    <h3>🎨 Painting Services</h3>
+                    <p>12+ services including house painting, waterproofing, and texture work</p>
+                </div>
+                <div class="service-card">
+                    <h3>🔒 Security Services</h3>
+                    <p>10+ services for CCTV, smart locks, alarms, and home security systems</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2 style="text-align: center; margin-bottom: 20px;">🔐 Demo Accounts</h2>
+            <p style="text-align: center; margin-bottom: 20px;">Try the platform with these demo credentials:</p>
+            <div class="demo-accounts">
+                <div class="demo-card">
+                    <h3>👤 Customer</h3>
+                    <p><strong>Register:</strong> Create new account</p>
+                    <p>Browse and book services</p>
+                </div>
+                <div class="demo-card">
+                    <h3>🔧 Provider</h3>
+                    <p><strong>Username:</strong> provider1</p>
+                    <p><strong>Password:</strong> provider1</p>
+                    <p>Manage services and bookings</p>
+                </div>
+                <div class="demo-card">
+                    <h3>⚙️ Admin</h3>
+                    <p><strong>Username:</strong> ADMIN</p>
+                    <p><strong>Password:</strong> ADMIN</p>
+                    <p>Platform analytics and management</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2 style="text-align: center; margin-bottom: 20px;">🛠 Tech Stack</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <div style="text-align: center;">
+                    <h4>Frontend</h4>
+                    <p>React 18, Material-UI, Modern CSS</p>
+                </div>
+                <div style="text-align: center;">
+                    <h4>Backend</h4>
+                    <p>Supabase, PostgreSQL, Real-time DB</p>
+                </div>
+                <div style="text-align: center;">
+                    <h4>Features</h4>
+                    <p>Authentication, Analytics, Booking System</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <h3>🌐 Live React Application</h3>
+            <p>This is a demonstration page. The full React application with all features is available in the repository.</p>
+            <p style="margin-top: 20px;">
+                <strong>Repository:</strong> 
+                <a href="https://github.com/2300033173/housemate" style="color: white; text-decoration: underline;">
+                    github.com/2300033173/housemate
+                </a>
+            </p>
+            <p style="margin-top: 20px; opacity: 0.8;">
+                Made with ❤️ for Vijayawada | HouseMate Platform
+            </p>
+        </div>
+    </div>
+</body>
+</html>
