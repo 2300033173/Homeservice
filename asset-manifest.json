@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/housemate/static/js/main.ef30dca2.js",
+    "index.html": "/housemate/index.html",
+    "main.ef30dca2.js.map": "/housemate/static/js/main.ef30dca2.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.ef30dca2.js"
+  ]
+}
