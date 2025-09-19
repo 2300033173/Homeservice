@@ -12,16 +12,7 @@
    const supabaseKey = 'YOUR_SUPABASE_ANON_KEY'
    ```
 
-## 2. Google Maps Setup
 
-1. Go to [Google Cloud Console](https://console.cloud.google.com)
-2. Create a new project or select existing one
-3. Enable Maps JavaScript API and Geocoding API
-4. Create an API key with restrictions for your domain
-5. Update `client/src/components/MapSelector.js` with your API key:
-   ```javascript
-   googleMapsApiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-   ```
 
 ## 3. Default Login Credentials
 
