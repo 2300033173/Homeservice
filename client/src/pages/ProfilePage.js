@@ -22,6 +22,8 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  Snackbar,
+  Alert,
 } from '@mui/material';
 import {
   Person,
@@ -35,27 +37,59 @@ import {
   TrendingUp,
   Save,
   Cancel,
+  PhotoCamera,
 } from '@mui/icons-material';
 import { supabase } from '../config/supabase';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user') || 'null');
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') || 'null'));
   const [bookings, setBookings] = useState([]);
   const [editMode, setEditMode] = useState(false);
-  const [editData, setEditData] = useState({ username: user?.username || '', phone: '', email: '' });
+  const [editData, setEditData] = useState({
+    full_name: '',
+    email: '',
+    phone: '',
+    address: '',
+    profile_picture: ''
+  });
   const [stats, setStats] = useState({
     totalBookings: 0,
     completedServices: 0,
     totalSpent: 0,
     avgRating: 4.5,
   });
+  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (user) {
+      fetchUserProfile();
       fetchUserBookings();
     }
   }, [user]);
+
+  const fetchUserProfile = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('users')
+        .select('*')
+        .eq('username', user.username)
+        .single();
+
+      if (!error && data) {
+        setEditData({
+          full_name: data.full_name || '',
+          email: data.email || '',
+          phone: data.phone || '',
+          address: data.address || '',
+          profile_picture: data.profile_picture || ''
+        });
+      }
+    } catch (err) {
+      console.error('Error fetching user profile:', err);
+    }
+  };
 
   const fetchUserBookings = async () => {
     try {
@@ -143,7 +177,7 @@ const ProfilePage = () => {
             </Avatar>
             <Box sx={{ flexGrow: 1 }}>
               <Typography variant="h4" sx={{ fontWeight: 600, mb: 1 }}>
-                {user.username}
+                {editData.full_name || user.username}
               </Typography>
               <Chip
                 label={user.role.charAt(0).toUpperCase() + user.role.slice(1)}
@@ -165,16 +199,17 @@ const ProfilePage = () => {
               <Box sx={{ display: 'flex', gap: 1 }}>
                 <IconButton 
                   sx={{ color: 'white' }}
-                  onClick={() => {
-                    // Save logic here
-                    setEditMode(false);
-                  }}
+                  onClick={handleSaveProfile}
+                  disabled={loading}
                 >
                   <Save />
                 </IconButton>
                 <IconButton 
                   sx={{ color: 'white' }}
-                  onClick={() => setEditMode(false)}
+                  onClick={() => {
+                    setEditMode(false);
+                    fetchUserProfile(); // Reset to original data
+                  }}
                 >
                   <Cancel />
                 </IconButton>
@@ -371,7 +406,7 @@ const ProfilePage = () => {
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <Person sx={{ mr: 2, color: 'text.secondary' }} />
-                  <Box>
+                  <Box sx={{ flexGrow: 1 }}>
                     <Typography variant="body2" color="text.secondary">
                       Username
                     </Typography>
@@ -380,14 +415,40 @@ const ProfilePage = () => {
                     </Typography>
                   </Box>
                 </Box>
+                {editData.email && (
+                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Email sx={{ mr: 2, color: 'text.secondary' }} />
+                    <Box sx={{ flexGrow: 1 }}>
+                      <Typography variant="body2" color="text.secondary">
+                        Email
+                      </Typography>
+                      <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                        {editData.email}
+                      </Typography>
+                    </Box>
+                  </Box>
+                )}
+                {editData.phone && (
+                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Phone sx={{ mr: 2, color: 'text.secondary' }} />
+                    <Box sx={{ flexGrow: 1 }}>
+                      <Typography variant="body2" color="text.secondary">
+                        Phone
+                      </Typography>
+                      <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                        {editData.phone}
+                      </Typography>
+                    </Box>
+                  </Box>
+                )}
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <LocationOn sx={{ mr: 2, color: 'text.secondary' }} />
-                  <Box>
+                  <Box sx={{ flexGrow: 1 }}>
                     <Typography variant="body2" color="text.secondary">
-                      Location
+                      Address
                     </Typography>
                     <Typography variant="body1" sx={{ fontWeight: 500 }}>
-                      Vijayawada, AP
+                      {editData.address || 'Vijayawada, AP'}
                     </Typography>
                   </Box>
                 </Box>
@@ -396,8 +457,96 @@ const ProfilePage = () => {
           </Card>
         </Grid>
       </Grid>
+
+      {/* Edit Profile Dialog */}
+      <Dialog open={editMode} onClose={() => setEditMode(false)} maxWidth="sm" fullWidth>
+        <DialogTitle>Edit Profile</DialogTitle>
+        <DialogContent>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 1 }}>
+            <TextField
+              label="Full Name"
+              value={editData.full_name}
+              onChange={(e) => setEditData({ ...editData, full_name: e.target.value })}
+              fullWidth
+            />
+            <TextField
+              label="Email"
+              type="email"
+              value={editData.email}
+              onChange={(e) => setEditData({ ...editData, email: e.target.value })}
+              fullWidth
+            />
+            <TextField
+              label="Phone"
+              value={editData.phone}
+              onChange={(e) => setEditData({ ...editData, phone: e.target.value })}
+              fullWidth
+            />
+            <TextField
+              label="Address"
+              value={editData.address}
+              onChange={(e) => setEditData({ ...editData, address: e.target.value })}
+              multiline
+              rows={2}
+              fullWidth
+            />
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setEditMode(false)}>Cancel</Button>
+          <Button onClick={handleSaveProfile} variant="contained" disabled={loading}>
+            {loading ? 'Saving...' : 'Save'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Snackbar for notifications */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+      >
+        <Alert severity={snackbar.severity} onClose={() => setSnackbar({ ...snackbar, open: false })}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Container>
   );
+
+  async function handleSaveProfile() {
+    setLoading(true);
+    try {
+      const { error } = await supabase
+        .from('users')
+        .update({
+          full_name: editData.full_name,
+          email: editData.email,
+          phone: editData.phone,
+          address: editData.address,
+          updated_at: new Date().toISOString()
+        })
+        .eq('username', user.username);
+
+      if (error) {
+        throw error;
+      }
+
+      setSnackbar({
+        open: true,
+        message: 'Profile updated successfully!',
+        severity: 'success'
+      });
+      setEditMode(false);
+    } catch (err) {
+      console.error('Error updating profile:', err);
+      setSnackbar({
+        open: true,
+        message: 'Failed to update profile. Please try again.',
+        severity: 'error'
+      });
+    }
+    setLoading(false);
+  }
 };
 
 export default ProfilePage;
